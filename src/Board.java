@@ -1,3 +1,5 @@
+import utils.KeyControls;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -13,7 +15,8 @@ import static utils.Constants.*;
 
 public class Board extends JPanel implements ActionListener, KeyListener {
 
-    private final Player player;
+    private final Ball ball;
+    private final List<Player> players;
     private final List<Sprite> sprites;
     private final Set<Integer> activeKeyCodes;
 
@@ -21,10 +24,12 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         setPreferredSize(new Dimension(BOARD_WIDTH, BOARD_HEIGHT));
         setBackground(Color.GRAY);
 
-        player = new Player();
-        Wall wall = new Wall(BOARD_WIDTH / 2 - WALL_WIDTH / 2,
-                BOARD_HEIGHT / 2 - WALL_WIDTH / 2);
-        sprites = new ArrayList<>(List.of(player, wall));
+        Player player = new Player(PLAYER_WIDTH, new KeyControls(KeyEvent.VK_W, KeyEvent.VK_S));
+        Player player2 = new Player(BOARD_WIDTH - PLAYER_WIDTH * 2, new KeyControls(KeyEvent.VK_UP, KeyEvent.VK_DOWN));
+        ball = new Ball(BOARD_WIDTH / 2 - BALL_WIDTH / 2,
+                BOARD_HEIGHT / 2 - BALL_WIDTH / 2);
+        players = new ArrayList<>(List.of(player, player2));
+        sprites = new ArrayList<>(List.of(player, player2, ball));
 
         activeKeyCodes = new HashSet<>();
 
@@ -33,15 +38,22 @@ public class Board extends JPanel implements ActionListener, KeyListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        player.handleActiveKeys(activeKeyCodes);
+        for(Player player : players) {
+            player.handleActiveKeys(activeKeyCodes);
+        }
 
         for(Sprite sprite : sprites) {
             sprite.tick();
         }
 
         for(Sprite sprite : sprites) {
-            if(player.isColliding(sprite)) {
-                player.handleCollision(sprite);
+            if(ball.isColliding(sprite)) {
+                ball.handleCollision(sprite);
+            }
+            for(Player player : players) {
+                if(player.isColliding(sprite)) {
+                    player.handleCollision(sprite);
+                }
             }
         }
 

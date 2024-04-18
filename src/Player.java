@@ -1,15 +1,15 @@
-import java.awt.*;
-import java.awt.event.KeyEvent;
+import utils.KeyControls;
+
 import java.util.Set;
 
 import static utils.Constants.*;
 
-public class Player extends Sprite {
-    private double dx;
-    private double dy;
+public class Player extends MovingSprite {
+    private final KeyControls keyControls;
 
-    public Player() {
-        super(PLAYER_IMAGE_PATH, 0, 0, PLAYER_WIDTH, PLAYER_HEIGHT);
+    public Player(int x, KeyControls keyControls) {
+        super(PLAYER_IMAGE_PATH, x, BOARD_HEIGHT / 2 - PLAYER_HEIGHT / 2, PLAYER_WIDTH, PLAYER_HEIGHT);
+        this.keyControls = keyControls;
     }
 
     @Override
@@ -24,17 +24,11 @@ public class Player extends Sprite {
         dx = 0;
         dy = 0;
 
-        if (activeKeyCodes.contains(KeyEvent.VK_UP)) {
+        if (activeKeyCodes.contains(keyControls.upKey())) {
             dy -= PLAYER_SPEED;
         }
-        if (activeKeyCodes.contains(KeyEvent.VK_RIGHT)) {
-            dx += PLAYER_SPEED;
-        }
-        if (activeKeyCodes.contains(KeyEvent.VK_DOWN)) {
+        if (activeKeyCodes.contains(keyControls.downKey())) {
             dy += PLAYER_SPEED;
-        }
-        if (activeKeyCodes.contains(KeyEvent.VK_LEFT)) {
-            dx -= PLAYER_SPEED;
         }
 
         normalizeDeltas();
@@ -47,23 +41,8 @@ public class Player extends Sprite {
         }
     }
 
-    public void handleCollision(Sprite other) {
-        if(other.getClass().equals(Wall.class)) {
-            Point previousPos = new Point(pos.x - (int)dx, pos.y - (int)dy);
-
-            if(dx > 0 && previousPos.x + size.width <= other.getTopLeft().x) {
-                pos.x = other.getTopLeft().x - size.width;
-            }
-            else if(dx < 0 && previousPos.x >= other.getBottomRight().x) {
-                pos.x = other.getBottomRight().x;
-            }
-
-            if(dy > 0 && previousPos.y + size.height <= other.getTopLeft().y) {
-                pos.y = other.getTopLeft().y - size.height;
-            }
-            else if(dy < 0 && previousPos.y >= other.getBottomRight().y) {
-                pos.y = other.getBottomRight().y;
-            }
-        }
+    @Override
+    void postCollide() {
+        // Unused
     }
 }
