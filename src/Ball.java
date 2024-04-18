@@ -19,7 +19,6 @@ public class Ball extends MovingSprite {
 
     @Override
     void postCollide() {
-        System.out.println();
-        System.err.println(pos);
+
     }
 }
