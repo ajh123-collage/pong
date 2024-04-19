@@ -28,8 +28,15 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         Player player2 = new Player(BOARD_WIDTH - PLAYER_WIDTH * 2, new KeyControls(KeyEvent.VK_UP, KeyEvent.VK_DOWN));
         ball = new Ball(BOARD_WIDTH / 2 - BALL_WIDTH / 2,
                 BOARD_HEIGHT / 2 - BALL_WIDTH / 2);
+
+        Wall left = new Wall(-1, 0, 1, BOARD_HEIGHT);
+        Wall right = new Wall(BOARD_WIDTH + 1, 0, 1, BOARD_HEIGHT);
+        Wall top = new Wall(-1, -1, BOARD_WIDTH, 1);
+        Wall down = new Wall(-1, BOARD_HEIGHT + 1, BOARD_WIDTH, 1);
+
+
         players = new ArrayList<>(List.of(player, player2));
-        sprites = new ArrayList<>(List.of(player, player2, ball));
+        sprites = new ArrayList<>(List.of(left, right, top, down, player, player2, ball));
 
         activeKeyCodes = new HashSet<>();
 

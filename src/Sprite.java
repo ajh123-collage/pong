@@ -5,7 +5,7 @@ import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 
-public abstract class Sprite {
+public abstract class Sprite implements Collidable {
 
     protected Point pos;
     protected Dimension size;
@@ -24,29 +24,37 @@ public abstract class Sprite {
     }
 
     private void loadImage(String imagePath) {
-        try {
-            image = ImageIO.read(new File(imagePath));
-        } catch (IOException exception) {
-            System.err.println("Error opening image file: " + imagePath);
+        if (imagePath != null) {
+            try {
+                image = ImageIO.read(new File(imagePath));
+            } catch (IOException exception) {
+                System.err.println("Error opening image file: " + imagePath);
+            }
         }
     }
 
     public void draw(Graphics graphics, ImageObserver observer) {
-        graphics.drawImage(image, pos.x, pos.y, size.width, size.height, observer);
+        if (image != null) {
+            graphics.drawImage(image, pos.x, pos.y, size.width, size.height, observer);
+        }
     }
 
+    @Override
     public Point getPos() {
         return pos;
     }
 
+    @Override
     public Dimension getSize() {
         return size;
     }
 
+    @Override
     public Point getTopLeft() {
         return pos;
     }
 
+    @Override
     public Point getBottomRight() {
         return new Point(pos.x + size.width, pos.y + size.height);
     }

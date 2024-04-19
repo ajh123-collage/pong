@@ -1,5 +1,7 @@
 import java.awt.*;
 
+import static utils.Constants.*;
+
 public abstract class MovingSprite extends Sprite {
     protected double dx;
     protected double dy;
@@ -29,8 +31,16 @@ public abstract class MovingSprite extends Sprite {
             pos.y = other.getBottomRight().y;
         }
 
-        postCollide();
+        postCollide(other);
     }
 
-    abstract void postCollide();
+    abstract void postCollide(Collidable other);
+
+    @Override
+    public void tick() {
+        pos.translate((int)dx, (int)dy);
+
+        pos.x = Math.clamp(pos.x, -1, (BOARD_WIDTH + 1) - size.width);
+        pos.y = Math.clamp(pos.y, -1, (BOARD_HEIGHT +1) - size.height);
+    }
 }
