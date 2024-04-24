@@ -15,19 +15,19 @@ public abstract class MovingSprite extends Sprite {
     }
 
     public final void handleCollision(Sprite other) {
-        Point previousPos = new Point(pos.x - (int)dx, pos.y - (int)dy);
+        Point previousPos = new Point(pos.x - (int) dx, pos.y - (int) dy);
 
-        if(dx > 0 && previousPos.x + size.width <= other.getTopLeft().x) {
+        if (dx > 0 && previousPos.x + size.width <= other.getTopLeft().x) {
             pos.x = other.getTopLeft().x - size.width;
         }
-        else if(dx < 0 && previousPos.x >= other.getBottomRight().x) {
+        else if (dx < 0 && previousPos.x >= other.getBottomRight().x) {
             pos.x = other.getBottomRight().x;
         }
 
-        if(dy > 0 && previousPos.y + size.height <= other.getTopLeft().y) {
+        if (dy > 0 && previousPos.y + size.height <= other.getTopLeft().y) {
             pos.y = other.getTopLeft().y - size.height;
         }
-        else if(dy < 0 && previousPos.y >= other.getBottomRight().y) {
+        else if (dy < 0 && previousPos.y >= other.getBottomRight().y) {
             pos.y = other.getBottomRight().y;
         }
 
@@ -40,7 +40,7 @@ public abstract class MovingSprite extends Sprite {
     public void tick() {
         pos.translate((int)dx, (int)dy);
 
-        pos.x = Math.clamp(pos.x, -1, (BOARD_WIDTH + 1) - size.width);
-        pos.y = Math.clamp(pos.y, -1, (BOARD_HEIGHT +1) - size.height);
+        pos.x = Math.clamp(pos.x, -1, (BOARD_WIDTH + 1));
+        pos.y = Math.clamp(pos.y, -1, (BOARD_HEIGHT + 1));
     }
 }

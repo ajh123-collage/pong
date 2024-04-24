@@ -59,7 +59,7 @@ public abstract class Sprite implements Collidable {
         return new Point(pos.x + size.width, pos.y + size.height);
     }
 
-    public boolean isColliding(Sprite other) {
+    public boolean isColliding(Collidable other) {
         return this != other
                 && this.getTopLeft().x < other.getBottomRight().x
                 && this.getBottomRight().x > other.getTopLeft().x

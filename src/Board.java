@@ -1,4 +1,5 @@
 import utils.KeyControls;
+import utils.Side;
 
 import javax.swing.*;
 import java.awt.*;
@@ -29,14 +30,14 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         ball = new Ball(BOARD_WIDTH / 2 - BALL_WIDTH / 2,
                 BOARD_HEIGHT / 2 - BALL_WIDTH / 2);
 
-        Wall left = new Wall(-1, 0, 1, BOARD_HEIGHT);
-        Wall right = new Wall(BOARD_WIDTH + 1, 0, 1, BOARD_HEIGHT);
-        Wall top = new Wall(-1, -1, BOARD_WIDTH, 1);
-        Wall down = new Wall(-1, BOARD_HEIGHT + 1, BOARD_WIDTH, 1);
+        Wall left = Wall.buildWall(Side.LEFT);
+        Wall right = Wall.buildWall(Side.RIGHT);
+        Wall top = Wall.buildWall(Side.TOP);
+        Wall down = Wall.buildWall(Side.BOTTOM);
 
 
         players = new ArrayList<>(List.of(player, player2));
-        sprites = new ArrayList<>(List.of(left, right, top, down, player, player2, ball));
+        sprites = new ArrayList<>(List.of(ball, player, player2, left, right, top, down));
 
         activeKeyCodes = new HashSet<>();
 
@@ -45,20 +46,20 @@ public class Board extends JPanel implements ActionListener, KeyListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        for(Player player : players) {
+        for (Player player : players) {
             player.handleActiveKeys(activeKeyCodes);
         }
 
-        for(Sprite sprite : sprites) {
+        for (Sprite sprite : sprites) {
             sprite.tick();
         }
 
-        for(Sprite sprite : sprites) {
-            if(ball.isColliding(sprite)) {
+        for (Sprite sprite : sprites) {
+            if (sprite.isColliding(ball)) {
                 ball.handleCollision(sprite);
             }
-            for(Player player : players) {
-                if(player.isColliding(sprite)) {
+            for (Player player : players) {
+                if (player.isColliding(sprite)) {
                     player.handleCollision(sprite);
                 }
             }
@@ -71,7 +72,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
     public void paint(Graphics graphics) {
         super.paint(graphics);
 
-        for(Sprite sprite : sprites) {
+        for (Sprite sprite : sprites) {
             sprite.draw(graphics, this);
         }
     }
