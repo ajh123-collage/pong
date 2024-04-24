@@ -35,6 +35,6 @@ public class Wall extends Sprite {
                 return new Wall(-1, BOARD_HEIGHT + 1, BOARD_WIDTH, 1, Side.BOTTOM);
             }
         }
-        return null;
+        throw new RuntimeException("Invalid wall side "+side);
     }
 }
