@@ -3,43 +3,41 @@ import utils.Side;
 import static utils.Constants.*;
 
 public class Ball extends MovingSprite {
-//    private double speedMultiplier;
+    private double speedMultiplier;
+    private int vx;
+    private int vy;
 
     public Ball(int x, int y) {
         super(BALL_IMAGE_PATH, x, y, BALL_WIDTH, BALL_HEIGHT);
-        dx = -BALL_SPEED;
-//        speedMultiplier = 1;
+        speedMultiplier = 0.4;
+        vx = -1;
+        vy = 1;
     }
 
     @Override
     void postCollide(Collidable other) {
         handleWall(other);
         handlePaddle(other);
-//        speedMultiplier += 0.25;
-//
-//        dx = dx * speedMultiplier;
-//        dy = dy * speedMultiplier;
+        speedMultiplier += 0.005;
+    }
+
+    @Override
+    public void tick() {
+        dx = vx * BALL_SPEED * speedMultiplier;
+        dy = vy * BALL_SPEED * speedMultiplier;
+
+        super.tick();
     }
 
     private void handleWall(Collidable collidable) {
         if (collidable instanceof Wall wall) {
             Side side = wall.getSide();
             switch (side) {
-                case TOP -> {
-                    dy = BALL_SPEED;
-                    dx = -BALL_SPEED;
+                case TOP, BOTTOM -> {
+                    vy = -vy;
                 }
-                case BOTTOM -> {
-                    dy = -BALL_SPEED;
-                    dx = BALL_SPEED;
-                }
-                case RIGHT -> {
-                    dx = -BALL_SPEED;
-                    dy = BALL_SPEED;
-                }
-                case LEFT -> {
-                    dx = BALL_SPEED;
-                    dy = BALL_SPEED;
+                case RIGHT, LEFT -> {
+                    vx = -vx;
                 }
             }
         }
@@ -48,20 +46,10 @@ public class Ball extends MovingSprite {
     private void handlePaddle(Collidable collidable) {
         if (collidable instanceof Player player) {
             if (player.getBottomRight().x <= pos.x) {
-                dx = BALL_SPEED;
-                dy = BALL_SPEED;
+                vx = -vx;
             }
             if (player.getPos().x >= pos.x) {
-                dx = -BALL_SPEED;
-                dy = -BALL_SPEED;
-            }
-            if (player.getBottomRight().y <= pos.y) {
-                dy = BALL_SPEED;
-                dx = BALL_SPEED;
-            }
-            if (player.getPos().y >= pos.y) {
-                dy = -BALL_SPEED;
-                dx = -BALL_SPEED;
+                vx = -vx;
             }
         }
     }
