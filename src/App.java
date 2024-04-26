@@ -5,7 +5,7 @@ public class App {
         JFrame window = new JFrame("Pong");
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        Board board = new Board();
+        Board board = Board.getInstance();
         window.add(board);
         window.addKeyListener(board);
 
