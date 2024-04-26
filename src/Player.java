@@ -40,6 +40,7 @@ public class Player extends MovingSprite {
     public void draw(Graphics graphics, ImageObserver observer) {
         super.draw(graphics, observer);
 
+        graphics.setColor(Color.GREEN);
         graphics.setFont(new Font(graphics.getFont().getFontName(), Font.PLAIN, 32));
         graphics.drawString(String.valueOf(score), this.pos.x, 32);
     }

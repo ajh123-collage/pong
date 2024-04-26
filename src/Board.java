@@ -24,7 +24,8 @@ public class Board extends JPanel implements ActionListener, KeyListener {
 
     private Board() {
         setPreferredSize(new Dimension(BOARD_WIDTH, BOARD_HEIGHT));
-        setBackground(Color.GRAY);
+        Color color = new Color(38, 79, 108);
+        setBackground(color);
 
         Player player = new Player(PLAYER_WIDTH, new KeyControls(KeyEvent.VK_W, KeyEvent.VK_S), Side.LEFT);
         Player player2 = new Player(BOARD_WIDTH - PLAYER_WIDTH * 2, new KeyControls(KeyEvent.VK_UP, KeyEvent.VK_DOWN), Side.RIGHT);
@@ -80,6 +81,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         String ral = "Rally: "+rally;
         int ralWidth = ral.length() * 32;
         graphics.setFont(new Font(graphics.getFont().getFontName(), Font.PLAIN, 32));
+        graphics.setColor(Color.GREEN);
         graphics.drawString(ral, (BOARD_WIDTH / 2) - (ralWidth / 2), 32);
     }
 
