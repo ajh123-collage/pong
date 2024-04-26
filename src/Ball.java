@@ -6,6 +6,7 @@ public class Ball extends MovingSprite {
     private double speedMultiplier;
     private int vx;
     private int vy;
+    private boolean wallTouched;
 
     public Ball(int x, int y) {
         super(BALL_IMAGE_PATH, x, y, BALL_WIDTH, BALL_HEIGHT);
@@ -40,6 +41,7 @@ public class Ball extends MovingSprite {
                 }
             }
         }
+        wallTouched = false;
 
         super.tick();
     }
@@ -53,6 +55,7 @@ public class Ball extends MovingSprite {
                 }
                 case RIGHT, LEFT -> {
                     vx = -vx;
+                    wallTouched = true;
                 }
             }
         }
