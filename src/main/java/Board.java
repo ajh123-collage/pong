@@ -1,5 +1,6 @@
 import utils.KeyControls;
 import utils.Side;
+import utils.GameState;
 
 import javax.swing.*;
 import javax.swing.Timer;
@@ -16,21 +17,20 @@ import static utils.Constants.*;
 public class Board extends JPanel implements ActionListener, KeyListener {
 
     private final Ball ball;
-    private final List<Player> players;
+    private final List<Paddle> paddles;
     private final List<Sprite> sprites;
     private final Set<Integer> activeKeyCodes;
 
     public static boolean GAME_ON = true;
     private static Board instance = null;
-    private int rally = 0;
 
     private Board() {
         setPreferredSize(new Dimension(BOARD_WIDTH, BOARD_HEIGHT));
         Color color = new Color(38, 79, 108);
         setBackground(color);
 
-        Player player = new Player(PLAYER_WIDTH, new KeyControls(KeyEvent.VK_W, KeyEvent.VK_S), Side.LEFT);
-        Player player2 = new Player(BOARD_WIDTH - PLAYER_WIDTH * 2, new KeyControls(KeyEvent.VK_UP, KeyEvent.VK_DOWN), Side.RIGHT);
+        Paddle paddle = new Paddle(PLAYER_WIDTH, new KeyControls(KeyEvent.VK_W, KeyEvent.VK_S), Side.LEFT);
+        Paddle paddle2 = new Paddle(BOARD_WIDTH - PLAYER_WIDTH * 2, new KeyControls(KeyEvent.VK_UP, KeyEvent.VK_DOWN), Side.RIGHT);
         ball = new Ball(BOARD_WIDTH / 2 - BALL_WIDTH / 2,
                 BOARD_HEIGHT / 2 - BALL_WIDTH / 2);
 
@@ -40,8 +40,8 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         Wall down = Wall.buildWall(Side.BOTTOM);
 
 
-        players = new ArrayList<>(List.of(player, player2));
-        sprites = new ArrayList<>(List.of(ball, player, player2, left, right, top, down));
+        paddles = new ArrayList<>(List.of(paddle, paddle2));
+        sprites = new ArrayList<>(List.of(ball, paddle, paddle2, left, right, top, down));
 
         activeKeyCodes = new HashSet<>();
 
@@ -51,8 +51,8 @@ public class Board extends JPanel implements ActionListener, KeyListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (GAME_ON) {
-            for (Player player : players) {
-                player.handleActiveKeys(activeKeyCodes);
+            for (Paddle paddle : paddles) {
+                paddle.handleActiveKeys(activeKeyCodes);
             }
 
             for (Sprite sprite : sprites) {
@@ -63,9 +63,9 @@ public class Board extends JPanel implements ActionListener, KeyListener {
                 if (sprite.isColliding(ball)) {
                     ball.handleCollision(sprite);
                 }
-                for (Player player : players) {
-                    if (player.isColliding(sprite)) {
-                        player.handleCollision(sprite);
+                for (Paddle paddle : paddles) {
+                    if (paddle.isColliding(sprite)) {
+                        paddle.handleCollision(sprite);
                     }
                 }
             }
@@ -82,7 +82,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
             sprite.draw(graphics, this);
         }
 
-        String ral = "Rally: "+rally;
+        String ral = "Rally: "+ GameState.getInstance().getRally();
         int ralWidth = ral.length() * 32;
         graphics.setFont(new Font(graphics.getFont().getFontName(), Font.PLAIN, 32));
         graphics.setColor(Color.GREEN);
@@ -111,31 +111,23 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         return instance;
     }
 
-    public List<Player> getPlayers() {
-        return Collections.unmodifiableList(players);
+    public List<Paddle> getPlayers() {
+        return Collections.unmodifiableList(paddles);
     }
 
-    public int getRally() {
-        return rally;
-    }
-
-    public void setRally(int rally) {
-        this.rally = rally;
-    }
-
-    public Player getLeft() {
-        for (Player player : Board.getInstance().getPlayers()) {
-            if (player.getSide() == Side.LEFT) {
-                return player;
+    public Paddle getLeft() {
+        for (Paddle paddle : Board.getInstance().getPlayers()) {
+            if (paddle.getSide() == Side.LEFT) {
+                return paddle;
             }
         }
         return null;
     }
 
-    public Player getRight() {
-        for (Player player : Board.getInstance().getPlayers()) {
-            if (player.getSide() == Side.RIGHT) {
-                return player;
+    public Paddle getRight() {
+        for (Paddle paddle : Board.getInstance().getPlayers()) {
+            if (paddle.getSide() == Side.RIGHT) {
+                return paddle;
             }
         }
         return null;

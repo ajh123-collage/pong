@@ -1,5 +1,6 @@
 import utils.KeyControls;
 import utils.Side;
+import utils.GameState;
 
 import java.awt.*;
 import java.awt.image.ImageObserver;
@@ -7,16 +8,14 @@ import java.util.Set;
 
 import static utils.Constants.*;
 
-public class Player extends MovingSprite {
+public class Paddle extends MovingSprite {
     private final KeyControls keyControls;
-    private int score;
     private final Side side;
 
-    public Player(int x, KeyControls keyControls, Side side) {
+    public Paddle(int x, KeyControls keyControls, Side side) {
         super(PLAYER_IMAGE_PATH, x, BOARD_HEIGHT / 2 - PLAYER_HEIGHT / 2, PLAYER_WIDTH, PLAYER_HEIGHT);
         this.side = side;
         this.keyControls = keyControls;
-        this.score = 0;
     }
 
     public void handleActiveKeys(Set<Integer> activeKeyCodes) {
@@ -42,17 +41,30 @@ public class Player extends MovingSprite {
 
         graphics.setColor(Color.GREEN);
         graphics.setFont(new Font(graphics.getFont().getFontName(), Font.PLAIN, 32));
-        graphics.drawString(String.valueOf(score), this.pos.x, 32);
+        if (side == Side.LEFT) {
+            graphics.drawString(String.valueOf(GameState.getInstance().getLeftPlayerScore()), this.pos.x, 32);
+        } else {
+            graphics.drawString(String.valueOf(GameState.getInstance().getRightPlayerScore()), this.pos.x, 32);
+        }
     }
 
     public int getScore() {
-        return score;
+        if (side == Side.LEFT) {
+            return GameState.getInstance().getLeftPlayerScore();
+        } else {
+            return GameState.getInstance().getRightPlayerScore();
+        }
     }
 
     public void setScore(int score) {
-        this.score = score;
-        if (this.score == 11) {
+        if (side == Side.LEFT) {
+            GameState.getInstance().setLeftPlayerScore(score);
+        } else {
+            GameState.getInstance().setRightPlayerScore(score);
+        }
+        if (getScore() == 11) {
             Board.GAME_ON = false;
+            GameState.save();
         }
     }
 

@@ -1,3 +1,5 @@
+import utils.GameState;
+
 import javax.swing.*;
 
 public class App {
@@ -6,6 +8,7 @@ public class App {
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         Board board = Board.getInstance();
+        GameState.load();
         window.add(board);
         window.addKeyListener(board);
 
