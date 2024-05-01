@@ -19,6 +19,8 @@ public class Board extends JPanel implements ActionListener, KeyListener {
     private final List<Player> players;
     private final List<Sprite> sprites;
     private final Set<Integer> activeKeyCodes;
+
+    public static boolean GAME_ON = true;
     private static Board instance = null;
     private int rally = 0;
 
@@ -48,21 +50,23 @@ public class Board extends JPanel implements ActionListener, KeyListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        for (Player player : players) {
-            player.handleActiveKeys(activeKeyCodes);
-        }
-
-        for (Sprite sprite : sprites) {
-            sprite.tick();
-        }
-
-        for (Sprite sprite : sprites) {
-            if (sprite.isColliding(ball)) {
-                ball.handleCollision(sprite);
-            }
+        if (GAME_ON) {
             for (Player player : players) {
-                if (player.isColliding(sprite)) {
-                    player.handleCollision(sprite);
+                player.handleActiveKeys(activeKeyCodes);
+            }
+
+            for (Sprite sprite : sprites) {
+                sprite.tick();
+            }
+
+            for (Sprite sprite : sprites) {
+                if (sprite.isColliding(ball)) {
+                    ball.handleCollision(sprite);
+                }
+                for (Player player : players) {
+                    if (player.isColliding(sprite)) {
+                        player.handleCollision(sprite);
+                    }
                 }
             }
         }

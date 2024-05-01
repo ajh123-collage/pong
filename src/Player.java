@@ -51,6 +51,9 @@ public class Player extends MovingSprite {
 
     public void setScore(int score) {
         this.score = score;
+        if (this.score == 11) {
+            Board.GAME_ON = false;
+        }
     }
 
     public Side getSide() {

@@ -1,18 +1,33 @@
 import utils.Side;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 import static utils.Constants.*;
 
 public class Ball extends MovingSprite {
     private double speedMultiplier;
     private int vx;
     private int vy;
-    private boolean wallTouched;
 
     public Ball(int x, int y) {
         super(BALL_IMAGE_PATH, x, y, BALL_WIDTH, BALL_HEIGHT);
-        speedMultiplier = 0.4;
-        vx = -1;
-        vy = 1;
+        speedMultiplier = 0.7;
+
+        int ranDir = ThreadLocalRandom.current().nextInt(0, 4 + 1);
+
+        if (ranDir == 0) {
+            vx = -1;
+            vy = 1;
+        } else if (ranDir == 1) {
+            vx = 1;
+            vy = -1;
+        } else if (ranDir == 2) {
+            vx = -1;
+            vy = -1;
+        } else {
+            vx = 1;
+            vy = 1;
+        }
     }
 
     @Override
@@ -41,7 +56,6 @@ public class Ball extends MovingSprite {
                 }
             }
         }
-        wallTouched = false;
 
         super.tick();
     }
@@ -55,7 +69,6 @@ public class Ball extends MovingSprite {
                 }
                 case RIGHT, LEFT -> {
                     vx = -vx;
-                    wallTouched = true;
                 }
             }
         }
