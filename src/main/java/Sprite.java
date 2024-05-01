@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 public abstract class Sprite implements Collidable {
 
@@ -26,7 +27,9 @@ public abstract class Sprite implements Collidable {
     private void loadImage(String imagePath) {
         if (imagePath != null) {
             try {
-                image = ImageIO.read(new File(imagePath));
+                InputStream stream = this.getClass().getClassLoader().getResourceAsStream(imagePath);
+                image = ImageIO.read(stream);
+                stream.close();
             } catch (IOException exception) {
                 System.err.println("Error opening image file: " + imagePath);
             }
