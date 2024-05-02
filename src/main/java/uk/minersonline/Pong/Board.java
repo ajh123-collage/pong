@@ -1,6 +1,7 @@
 package uk.minersonline.Pong;
 
 import uk.minersonline.Pong.utils.GameState;
+import uk.minersonline.Pong.utils.GraphicsUtils;
 import uk.minersonline.Pong.utils.KeyControls;
 
 import javax.swing.*;
@@ -83,17 +84,14 @@ public class Board extends JPanel implements ActionListener, KeyListener {
             sprite.draw(graphics, this);
         }
 
-        String ral = "Rally: "+ GameState.getInstance().getRally();
-        int ralWidth = ral.length() * 32;
         graphics.setFont(new Font(graphics.getFont().getFontName(), Font.PLAIN, 32));
         graphics.setColor(Color.GREEN);
-        graphics.drawString(ral, (BOARD_WIDTH / 2) - (ralWidth / 2), 32);
+
+        String ral = "Rally: "+ GameState.getInstance().getRally();
+        GraphicsUtils.centerString(graphics, ral, graphics.getFont(), 32);
 
         String ral2 = "Highest Rally: "+GameState.getInstance().getHighestRally();
-        int ralWidth2 = ral2.length() * 32;
-        graphics.setFont(new Font(graphics.getFont().getFontName(), Font.PLAIN, 32));
-        graphics.setColor(Color.GREEN);
-        graphics.drawString(ral2, (BOARD_WIDTH / 2) - (ralWidth2 / 2), 64);
+        GraphicsUtils.centerString(graphics, ral2, graphics.getFont(), 64);
     }
 
     @Override

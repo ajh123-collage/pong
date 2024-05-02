@@ -5,20 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="937f4c11-089a-48a9-830e-3dbe7fbf4bd7" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/uk/minersonline/Pong/utils/GraphicsUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/minersonline/Pong/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Ball.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/minersonline/Pong/Ball.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/minersonline/Pong/Board.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Collidable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/minersonline/Pong/utils/Collidable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/MovingSprite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/minersonline/Pong/MovingSprite.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Paddle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/minersonline/Pong/Paddle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Sprite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/minersonline/Pong/Sprite.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Wall.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/minersonline/Pong/Wall.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/utils/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/minersonline/Pong/utils/Constants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/utils/GameState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/minersonline/Pong/utils/GameState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/utils/KeyControls.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/minersonline/Pong/utils/KeyControls.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/utils/Side.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/minersonline/Pong/Side.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/uk/minersonline/Pong/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/minersonline/Pong/Board.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
