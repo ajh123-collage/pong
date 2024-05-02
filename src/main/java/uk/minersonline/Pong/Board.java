@@ -3,6 +3,7 @@ package uk.minersonline.Pong;
 import uk.minersonline.Pong.utils.GameState;
 import uk.minersonline.Pong.utils.GraphicsUtils;
 import uk.minersonline.Pong.utils.KeyControls;
+import uk.minersonline.Pong.utils.Side;
 
 import javax.swing.*;
 import javax.swing.Timer;

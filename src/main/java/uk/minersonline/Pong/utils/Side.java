@@ -1,4 +1,4 @@
-package uk.minersonline.Pong;
+package uk.minersonline.Pong.utils;
 
 public enum Side {
     TOP,

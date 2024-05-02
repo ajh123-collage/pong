@@ -1,5 +1,7 @@
 package uk.minersonline.Pong;
 
+import uk.minersonline.Pong.utils.Side;
+
 import static uk.minersonline.Pong.utils.Constants.BOARD_HEIGHT;
 import static uk.minersonline.Pong.utils.Constants.BOARD_WIDTH;
 

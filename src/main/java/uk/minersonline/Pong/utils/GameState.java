@@ -2,7 +2,6 @@ package uk.minersonline.Pong.utils;
 
 import com.google.gson.Gson;
 import uk.minersonline.Pong.Ball;
-import uk.minersonline.Pong.Side;
 
 import java.io.File;
 import java.io.FileWriter;

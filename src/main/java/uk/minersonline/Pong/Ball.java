@@ -2,6 +2,7 @@ package uk.minersonline.Pong;
 
 import uk.minersonline.Pong.utils.Collidable;
 import uk.minersonline.Pong.utils.GameState;
+import uk.minersonline.Pong.utils.Side;
 
 import java.util.concurrent.ThreadLocalRandom;
 
