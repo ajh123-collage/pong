@@ -1,6 +1,7 @@
-import utils.KeyControls;
-import utils.Side;
-import utils.GameState;
+package uk.minersonline.Pong;
+
+import uk.minersonline.Pong.utils.GameState;
+import uk.minersonline.Pong.utils.KeyControls;
 
 import javax.swing.*;
 import javax.swing.Timer;
@@ -12,7 +13,7 @@ import java.awt.event.KeyListener;
 import java.util.*;
 import java.util.List;
 
-import static utils.Constants.*;
+import static uk.minersonline.Pong.utils.Constants.*;
 
 public class Board extends JPanel implements ActionListener, KeyListener {
 
@@ -87,6 +88,12 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         graphics.setFont(new Font(graphics.getFont().getFontName(), Font.PLAIN, 32));
         graphics.setColor(Color.GREEN);
         graphics.drawString(ral, (BOARD_WIDTH / 2) - (ralWidth / 2), 32);
+
+        String ral2 = "Highest Rally: "+GameState.getInstance().getHighestRally();
+        int ralWidth2 = ral2.length() * 32;
+        graphics.setFont(new Font(graphics.getFont().getFontName(), Font.PLAIN, 32));
+        graphics.setColor(Color.GREEN);
+        graphics.drawString(ral2, (BOARD_WIDTH / 2) - (ralWidth2 / 2), 64);
     }
 
     @Override

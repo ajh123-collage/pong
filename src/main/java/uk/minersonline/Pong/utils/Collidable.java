@@ -1,3 +1,5 @@
+package uk.minersonline.Pong.utils;
+
 import java.awt.*;
 
 public interface Collidable {

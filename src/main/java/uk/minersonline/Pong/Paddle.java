@@ -1,12 +1,14 @@
-import utils.KeyControls;
-import utils.Side;
-import utils.GameState;
+package uk.minersonline.Pong;
+
+import uk.minersonline.Pong.utils.Collidable;
+import uk.minersonline.Pong.utils.GameState;
+import uk.minersonline.Pong.utils.KeyControls;
 
 import java.awt.*;
 import java.awt.image.ImageObserver;
 import java.util.Set;
 
-import static utils.Constants.*;
+import static uk.minersonline.Pong.utils.Constants.*;
 
 public class Paddle extends MovingSprite {
     private final KeyControls keyControls;

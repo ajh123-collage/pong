@@ -1,6 +1,10 @@
+package uk.minersonline.Pong;
+
+import uk.minersonline.Pong.utils.Collidable;
+
 import java.awt.*;
 
-import static utils.Constants.*;
+import static uk.minersonline.Pong.utils.Constants.*;
 
 public abstract class MovingSprite extends Sprite {
     protected double dx;

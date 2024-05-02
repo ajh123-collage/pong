@@ -1,4 +1,6 @@
-import utils.GameState;
+package uk.minersonline.Pong;
+
+import uk.minersonline.Pong.utils.GameState;
 
 import javax.swing.*;
 
@@ -7,8 +9,8 @@ public class App {
         JFrame window = new JFrame("Pong");
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        Board board = Board.getInstance();
         GameState.load();
+        Board board = Board.getInstance();
         window.add(board);
         window.addKeyListener(board);
 

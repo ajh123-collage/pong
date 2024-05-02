@@ -1,11 +1,11 @@
-package utils;
+package uk.minersonline.Pong.utils;
 
 public final class Constants {
     private Constants() {
         // prevents instantiation
     }
 
-    // Board constants
+    // uk.minersonline.Pong.Board constants
     public static final int BOARD_WIDTH = 640;
     public static final int BOARD_HEIGHT = 480;
     // A delay of 25 milliseconds results in a frame rate of 45 FPS.
@@ -17,7 +17,7 @@ public final class Constants {
     public static final int PLAYER_HEIGHT = 128;
     public static final int PLAYER_SPEED = 10;
 
-    // Wall constants
+    // uk.minersonline.Pong.Wall constants
     public static final String BALL_IMAGE_PATH = "ball.png";
     public static final int BALL_WIDTH = 32;
     public static final int BALL_HEIGHT = 32;

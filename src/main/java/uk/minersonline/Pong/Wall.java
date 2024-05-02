@@ -1,7 +1,7 @@
-import utils.Side;
+package uk.minersonline.Pong;
 
-import static utils.Constants.BOARD_HEIGHT;
-import static utils.Constants.BOARD_WIDTH;
+import static uk.minersonline.Pong.utils.Constants.BOARD_HEIGHT;
+import static uk.minersonline.Pong.utils.Constants.BOARD_WIDTH;
 
 public class Wall extends Sprite {
     private final Side side;

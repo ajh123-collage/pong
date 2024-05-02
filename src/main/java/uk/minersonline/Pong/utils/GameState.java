@@ -1,8 +1,8 @@
-package utils;
-
+package uk.minersonline.Pong.utils;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
+import uk.minersonline.Pong.Ball;
+import uk.minersonline.Pong.Side;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -70,6 +70,11 @@ public class GameState {
 
         GameState current = GameState.getInstance();
         current.highestRally = loaded.getHighestRally();
+        if (loaded.leftPlayerScore > loaded.rightPlayerScore) {
+            Ball.WON_DIR = Side.LEFT;
+        } else if (loaded.rightPlayerScore > loaded.leftPlayerScore) {
+            Ball.WON_DIR = Side.RIGHT;
+        }
     }
 
     public static void save() {
@@ -79,6 +84,7 @@ public class GameState {
             File file = new File("data.json");
             FileWriter writer = new FileWriter(file);
             writer.write(data);
+            writer.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

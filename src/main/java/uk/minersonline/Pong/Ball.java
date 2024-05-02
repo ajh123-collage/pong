@@ -1,11 +1,14 @@
-import utils.GameState;
-import utils.Side;
+package uk.minersonline.Pong;
+
+import uk.minersonline.Pong.utils.Collidable;
+import uk.minersonline.Pong.utils.GameState;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-import static utils.Constants.*;
+import static uk.minersonline.Pong.utils.Constants.*;
 
 public class Ball extends MovingSprite {
+    public static Side WON_DIR = null;
     private double speedMultiplier;
     private int vx;
     private int vy;
@@ -14,20 +17,35 @@ public class Ball extends MovingSprite {
         super(BALL_IMAGE_PATH, x, y, BALL_WIDTH, BALL_HEIGHT);
         speedMultiplier = 0.7;
 
-        int ranDir = ThreadLocalRandom.current().nextInt(0, 4 + 1);
+        if (WON_DIR == null) {
+            int ranDir = ThreadLocalRandom.current().nextInt(0, 4 + 1);
 
-        if (ranDir == 0) {
-            vx = -1;
-            vy = 1;
-        } else if (ranDir == 1) {
-            vx = 1;
-            vy = -1;
-        } else if (ranDir == 2) {
-            vx = -1;
-            vy = -1;
-        } else {
-            vx = 1;
-            vy = 1;
+            if (ranDir == 0) {
+                vx = -1;
+                vy = 1;
+            } else if (ranDir == 1) {
+                vx = 1;
+                vy = -1;
+            } else if (ranDir == 2) {
+                vx = -1;
+                vy = -1;
+            } else {
+                vx = 1;
+                vy = 1;
+            }
+        }
+
+        if (WON_DIR != null) {
+            switch (WON_DIR) {
+                case LEFT -> {
+                    vx = -1;
+                    vy = 1;
+                }
+                case RIGHT -> {
+                    vx = 1;
+                    vy = 1;
+                }
+            }
         }
     }
 
