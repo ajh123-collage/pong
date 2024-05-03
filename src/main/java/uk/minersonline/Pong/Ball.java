@@ -13,6 +13,7 @@ public class Ball extends MovingSprite {
     private double speedMultiplier;
     private int vx;
     private int vy;
+    private boolean allowPaddle = false;
 
     public Ball(int x, int y) {
         super(BALL_IMAGE_PATH, x, y, BALL_WIDTH, BALL_HEIGHT);
@@ -65,17 +66,8 @@ public class Ball extends MovingSprite {
         Paddle left = Board.getInstance().getLeft();
         Paddle right = Board.getInstance().getRight();
 
-        // Make sure ball is not past left player
-        if (!(this.pos.x < left.getBottomRight().x)) {
-            // Make sure ball is not past right player
-            if (!(this.pos.x > right.pos.x)) {
-                if (this.pos.x == right.pos.x) {
-                    left.setScore(left.getScore() + 1);
-                } else if (this.pos.x == left.getBottomRight().x) {
-                    right.setScore(right.getScore() + 1);
-                }
-            }
-        }
+        // Reset `allowPaddle` when the ball is in-between the paddles
+        allowPaddle = this.pos.x >= (left.getBottomRight().x - 5) || this.pos.x <= (right.getTopLeft().x + 5);
 
         super.tick();
     }
@@ -89,6 +81,19 @@ public class Ball extends MovingSprite {
                 }
                 case RIGHT, LEFT -> {
                     vx = -vx;
+                }
+            }
+            // We only want to increase score if we are allowed to
+            if (allowPaddle) {
+                Paddle left = Board.getInstance().getLeft();
+                Paddle right = Board.getInstance().getRight();
+                if (wall.getSide() == Side.LEFT) {
+                    right.setScore(right.getScore() + 1);
+                    allowPaddle = false;
+                }
+                if (wall.getSide() == Side.RIGHT) {
+                    left.setScore(left.getScore() + 1);
+                    allowPaddle = false;
                 }
             }
         }
