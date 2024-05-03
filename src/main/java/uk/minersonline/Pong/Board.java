@@ -29,7 +29,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
 
     private Board() {
         setPreferredSize(new Dimension(BOARD_WIDTH, BOARD_HEIGHT));
-        Color color = new Color(38, 79, 108);
+        Color color = new Color(53, 126, 199);
         setBackground(color);
 
         Paddle paddle = new Paddle(PLAYER_WIDTH, new KeyControls(KeyEvent.VK_W, KeyEvent.VK_S), Side.LEFT);
@@ -93,6 +93,17 @@ public class Board extends JPanel implements ActionListener, KeyListener {
 
         String ral2 = "Highest Rally: "+GameState.getInstance().getHighestRally();
         GraphicsUtils.centerString(graphics, ral2, graphics.getFont(), 64);
+
+        if (!GAME_ON) {
+            int lScore = getLeft().getScore();
+            int rScore = getRight().getScore();
+
+            String txt = "Right player won";
+            if (lScore > rScore) {
+                txt = "Left player won";
+            }
+            GraphicsUtils.centerString(graphics, txt, graphics.getFont(), 128);
+        }
     }
 
     @Override
