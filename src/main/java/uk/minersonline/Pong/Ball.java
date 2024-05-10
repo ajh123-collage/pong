@@ -4,6 +4,7 @@ import uk.minersonline.Pong.utils.Collidable;
 import uk.minersonline.Pong.utils.GameState;
 import uk.minersonline.Pong.utils.Side;
 
+import java.awt.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 import static uk.minersonline.Pong.utils.Constants.*;
@@ -19,6 +20,11 @@ public class Ball extends MovingSprite {
         super(BALL_IMAGE_PATH, x, y, BALL_WIDTH, BALL_HEIGHT);
         speedMultiplier = 0.7;
 
+        reset();
+    }
+
+    public void reset() {
+        pos = new Point(BOARD_WIDTH / 2 - BALL_WIDTH / 2, BOARD_HEIGHT / 2 - BALL_WIDTH / 2);
         if (WON_DIR == null) {
             int ranDir = ThreadLocalRandom.current().nextInt(0, 4 + 1);
 
@@ -80,7 +86,7 @@ public class Ball extends MovingSprite {
                     vy = -vy;
                 }
                 case RIGHT, LEFT -> {
-                    vx = -vx;
+                    reset();
                 }
             }
             // We only want to increase score if we are allowed to
@@ -89,10 +95,12 @@ public class Ball extends MovingSprite {
                 Paddle right = Board.getInstance().getRight();
                 if (wall.getSide() == Side.LEFT) {
                     right.setScore(right.getScore() + 1);
+                    WON_DIR = Side.RIGHT;
                     allowPaddle = false;
                 }
                 if (wall.getSide() == Side.RIGHT) {
                     left.setScore(left.getScore() + 1);
+                    WON_DIR = Side.LEFT;
                     allowPaddle = false;
                 }
             }

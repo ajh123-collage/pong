@@ -34,8 +34,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
 
         Paddle paddle = new Paddle(PLAYER_WIDTH, new KeyControls(KeyEvent.VK_W, KeyEvent.VK_S), Side.LEFT);
         Paddle paddle2 = new Paddle(BOARD_WIDTH - PLAYER_WIDTH * 2, new KeyControls(KeyEvent.VK_UP, KeyEvent.VK_DOWN), Side.RIGHT);
-        ball = new Ball(BOARD_WIDTH / 2 - BALL_WIDTH / 2,
-                BOARD_HEIGHT / 2 - BALL_WIDTH / 2);
+        ball = new Ball(BOARD_WIDTH / 2 - BALL_WIDTH / 2, BOARD_HEIGHT / 2 - BALL_WIDTH / 2);
 
         Wall left = Wall.buildWall(Side.LEFT);
         Wall right = Wall.buildWall(Side.RIGHT);
