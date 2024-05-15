@@ -31,10 +31,16 @@ public abstract class Sprite implements Collidable {
         if (imagePath != null) {
             try {
                 InputStream stream = this.getClass().getClassLoader().getResourceAsStream(imagePath);
+                if (stream == null) {
+                    System.err.println("Error opening image file: " + imagePath);
+                    System.exit(-1);
+                }
                 image = ImageIO.read(stream);
                 stream.close();
             } catch (IOException exception) {
                 System.err.println("Error opening image file: " + imagePath);
+                exception.printStackTrace();
+                System.exit(-1);
             }
         }
     }
